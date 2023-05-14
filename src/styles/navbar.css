@@ -1,0 +1,67 @@
+.navbar{
+    padding: 0% 5% 0% 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 7vh;
+    font-size: 2rem;
+    color: rgb(65, 47, 49);
+    background-color: white;
+    z-index: 5;
+}
+
+.left-nav{
+    width: 22%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.firtuna{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-family: 'Caveat', cursive;
+}
+
+.logo{
+    width: 25%;
+    height: 100%;
+    background: url("../img/logo-png.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: 'Caveat', cursive;
+}
+
+
+.right-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    gap: 3%;
+    background-color: rgba(199, 156, 0, 0.1);
+}
+
+.metamask-button{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    border-left: 4px solid rgb(170, 138, 0);
+    font-family: 'Teko', sans-serif;
+    cursor: pointer;
+}
+
+.profile{
+    width: auto;
+    padding-left: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
