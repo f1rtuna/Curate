@@ -22,7 +22,20 @@ export default function Home({provider, account, setAccount, curate, categories,
             return (story.categoryId.toNumber() + 1) === id
         });
 
-        navigate(`/category/${id}`, { state: { stories: newStoryList } });
+        const storiesToCategory = (newStoryList.map((story, index) => {
+            const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
+            const formattedDate = date.toLocaleString();
+            const storyObject = {"id": story.storyId.toNumber(),
+                            "title": story.title,
+                            "content": story.content,
+                            "author": story.from,
+                            "category": categories[story.categoryId.toNumber()].name,
+                            "date": formattedDate}
+            return storyObject;
+        } ))
+        
+        console.log("storiesToCategory is: ", storiesToCategory);
+        navigate(`/category/${id}`, { state: { stories: storiesToCategory } });
     }
 
     const fetchStories = async () => {
@@ -205,12 +218,23 @@ export default function Home({provider, account, setAccount, curate, categories,
                         //         <div className="category-name">{category.name}</div>
                         //     </div>
                         // ))
-                        stories.map((story, index) => (
-                            <div className="category-item" key={index}>
-                                <div className="category-image"></div>
-                                <div className="category-name">{story.title}</div>
+                        stories.map((story, index) => {
+                            const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
+                            const formattedDate = date.toLocaleString();
+                            const storyObject = {"id": story.storyId.toNumber(),
+                                                    "title": story.title,
+                                                    "content": story.content,
+                                                    "author": story.from,
+                                                    "category": categories[story.categoryId.toNumber()].name,
+                                                    "date": formattedDate};
+
+                            return (
+                            <div className="story-item2" key={index} onClick={() => handleStoryClick(storyObject)}>
+                                <div className="story-image2"></div>
+                                <div className="story-name2">{story.title}</div>
                             </div>
-                        ))
+                            )
+                        })
                     )}
                     {/* {categories.map((category, index) => (
                         <div className= "category-item">
