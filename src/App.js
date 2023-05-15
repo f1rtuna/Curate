@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home"
 import CurateForm from './components/CurateForm';
 import Story from "./components/Story"
+import Category from './components/Category';
 import "./styles/app.css";
 
 // ABI
@@ -69,7 +70,7 @@ function App() {
 
   useEffect(() => {
     loadCurateData()
-  }, [account]);
+  }, []);
 
   return (
     <div>
@@ -93,7 +94,18 @@ function App() {
                                         curate={curate}
                                         categories={categories}
                                         />}/>
-              <Route path="/story/:id" element={<Story />} />
+              <Route path="/story/:id" element={<Story 
+                                                provider={provider}
+                                                account={account}
+                                                curate={curate}
+                                                />} />
+              <Route path="/category/:id" element = {<Category
+                                                      provider={provider}
+                                                      account={account}
+                                                      curate={curate}
+                                                      categories={categories}
+                                                      subscribedCategories = {subscribedCategories}
+                                                    />} />
           </Routes>
       </div>
   </div>

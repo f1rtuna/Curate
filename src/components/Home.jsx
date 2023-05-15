@@ -11,6 +11,20 @@ export default function Home({provider, account, setAccount, curate, categories,
     const navigate = useNavigate();
     const [stories, setStories] = useState([]);
 
+    const handleStoryClick = (storyObject) => {
+        navigate(`/story/${storyObject.id}`, { state: { story: storyObject } });
+    }
+
+    const handleCategoryClick = (id) => {
+        console.log(id);
+
+        const newStoryList = stories.filter((story) => {
+            return (story.categoryId.toNumber() + 1) === id
+        });
+
+        navigate(`/category/${id}`, { state: { stories: newStoryList } });
+    }
+
     const fetchStories = async () => {
         const stories = await curate.getStories();
         console.log("stories ", stories);
@@ -70,21 +84,76 @@ export default function Home({provider, account, setAccount, curate, categories,
                             {stories.slice(-4).reverse().map((story, index) => {
                                 const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
                                 const formattedDate = date.toLocaleString();
-                                return (                    
-                                        <Link to={`/story/${story.storyId.toNumber()}`} key={index} className="story-item">
-                                            <div className="story-title">{story.title}</div>
-                                            {story.content.length > 150 ? (
-                                                <div className="story-preview">{story.content.slice(0, 150)}...</div>
-                                            ) : (
-                                                <div className="story-preview">{story.content}</div>
-                                            )}
-                                            <div className="story-footer">
-                                                {/* <div className="">{story.storyId.toNumber()}</div> */}
-                                                <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
-                                                <div className="story-date">{formattedDate}</div>
-                                                <div className="story-author">-{story.from}</div>
-                                            </div>
-                                        </Link>
+                                const storyObject = {"id": story.storyId.toNumber(),
+                                                    "title": story.title,
+                                                    "content": story.content,
+                                                    "author": story.from,
+                                                    "category": categories[story.categoryId.toNumber()].name,
+                                                    "date": formattedDate}
+                                console.log("story object is: ", storyObject)
+                                return (       
+                                    // <Link
+                                    //     to={{
+                                    //         pathname: `/story/${story.storyId.toNumber()}`,
+                                    //         state: {
+                                    //             story: storyObject,
+                                    //             curate: curate,
+                                    //             provider: provider,
+                                    //             account: account
+                                    //         }
+                                    //     }}
+                                    //     key={index}
+                                    //     className="story-item"
+                                    // >
+                                    //     <div className="story-title">{story.title}</div>
+                                    //     {story.content.length > 150 ? (
+                                    //         <div className="story-preview">{story.content.slice(0, 150)}...</div>
+                                    //     ) : (
+                                    //         <div className="story-preview">{story.content}</div>
+                                    //     )}
+                                    //     <div className="story-footer">
+                                    //         <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
+                                    //         <div className="story-date">{formattedDate}</div>
+                                    //         <div className="story-author">-{story.from}</div>
+                                    //     </div>
+                                    // </Link>
+
+                                        <div 
+                                          key={index} 
+                                          className="story-item"
+                                          onClick={() => handleStoryClick(storyObject)}
+                                        >
+                                          <div className="story-title">{story.title}</div>
+                                          {story.content.length > 150 ? (
+                                            <div className="story-preview">{story.content.slice(0, 150)}...</div>
+                                          ) : (
+                                            <div className="story-preview">{story.content}</div>
+                                          )}
+                                          <div className="story-footer">
+                                            <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
+                                            <div className="story-date">{formattedDate}</div>
+                                            <div className="story-author">-{story.from}</div>
+                                          </div>
+                                        </div>
+                                                  
+                                        // <Link to={`/story/${story.storyId.toNumber()}`} 
+                                        //         key={index} 
+                                        //         className="story-item"
+                                        //         story = {storyObject}
+                                        // >
+                                        //     <div className="story-title">{story.title}</div>
+                                        //     {story.content.length > 150 ? (
+                                        //         <div className="story-preview">{story.content.slice(0, 150)}...</div>
+                                        //     ) : (
+                                        //         <div className="story-preview">{story.content}</div>
+                                        //     )}
+                                        //     <div className="story-footer">
+                                        //         {/* <div className="">{story.storyId.toNumber()}</div> */}
+                                        //         <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
+                                        //         <div className="story-date">{formattedDate}</div>
+                                        //         <div className="story-author">-{story.from}</div>
+                                        //     </div>
+                                        // </Link>
                                 )
                             })}
                         </div>
@@ -101,7 +170,7 @@ export default function Home({provider, account, setAccount, curate, categories,
                         </li>
                         <li className={index === 1 ? 'active' : ''} onClick={() => setIndex(1)}>
                             <AiOutlineFolder />
-                            Subscribed
+                            All Stories
                         </li>
                         <Link to="/curate" className={index === 2 ? 'active' : ''}>
                             <MdOutlineCreate />
@@ -114,18 +183,32 @@ export default function Home({provider, account, setAccount, curate, categories,
                 <div className = "categories">
                     {index === 0 ? (
                         categories.map((category, index) => (
-                            <div className="category-item" key={index}>
-                            <div className="category-image"></div>
-                            <div className="category-name">{category.name}</div>
+
+                            // <Link to={`/category/${category.id.toNumber()}`} className = "category-item" key = {index}>
+                            //     <div className="category-image"></div>
+                            //     <div className="category-name">{category.name}</div>
+                            // </Link>
+                             
+                            <div className="category-item" key={index} onClick = {() => handleCategoryClick(category.id.toNumber())}>
+                                <div className="category-image"></div>
+                                <div className="category-name">{category.name}</div>
                             </div>
                         ))
-                        ) : subscribedCategories.length === 0 ? (
-                        <div className = "no-categories">You are currently not subscribed to any category</div>
+                        // ) : subscribedCategories.length === 0 ? (
+                        // <div className = "no-categories">You are currently not subscribed to any category</div>
+                          ) : stories.length === 0 ? (
+                            <div className = "no-categories">Currently no Stories Curated</div>
                         ) : (
-                        subscribedCategories.map((category, index) => (
+                        // subscribedCategories.map((category, index) => (
+                        //     <div className="category-item" key={index} onClick={() => handleCategoryClick(category.id.toNumber())}>
+                        //         <div className="category-image"></div>
+                        //         <div className="category-name">{category.name}</div>
+                        //     </div>
+                        // ))
+                        stories.map((story, index) => (
                             <div className="category-item" key={index}>
-                            <div className="category-image"></div>
-                            <div className="category-name">{category.name}</div>
+                                <div className="category-image"></div>
+                                <div className="category-name">{story.title}</div>
                             </div>
                         ))
                     )}
