@@ -72,3 +72,11 @@
     display: flex;
     justify-content: center;
   }
+
+  .warning-note{
+    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: red;
+  }

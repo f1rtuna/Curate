@@ -30,7 +30,12 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     setProvider(provider);
     const network = await provider.getNetwork();
-    const curate = new ethers.Contract(config[network.chainId].Curate.address, Curate, provider);
+
+    // const contractAddress = "0x604b4981F2f45f5303Ab0e176B3177d7e7c185b9";
+    const contractAddress = "0x5Ce2bcC8d8F854447A5A66FD2421C31cfBD3Ea01";
+
+    // const curate = new ethers.Contract(config[network.chainId].Curate.address, Curate, provider);
+    const curate = new ethers.Contract(contractAddress, Curate, provider);
     setCurate(curate);
 
     const totalCategories = await curate.totalCategories();

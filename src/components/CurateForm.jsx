@@ -44,6 +44,7 @@ export default function CurateForm({ provider, account, curate, categories }) {
   return (
     <div className="curate-form-all">
       <div className="curate-form-title">Curate Your Story</div>
+      <span className="warning-note">NOTE IT MAY TAKE A WHILE FOR YOUR STORY TO SHOW UP AT HOME DUE TO THE TRANSACTION HAVING TO BE MINED</span>
       <div className="curate-form">
         <div className="curate-form-background-container">
           <div className="curate-form-background"></div>
