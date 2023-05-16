@@ -156,39 +156,45 @@ export default function Home({provider, account, setAccount, curate, categories,
                 </div>
 
                 {/* category section */}
-                <div className = "categories">
-                    {index === 0 ? (
-                        categories.length === 0 ? (
-                        <div className="no-categories">No categories yet, connect your wallet</div>
-                        ) : (
-                        categories.map((category, index) => (
-                            <div className="category-item" key={index} onClick={() => handleCategoryClick(category.id.toNumber())}>
-                            <div className="category-image"></div>
-                            <div className="category-name">{category.name}</div>
-                            </div>
-                        ))
-                        )
-                        ) : stories.length === 0 ? (
-                            <div className = "no-categories">Currently no Stories Curated</div>
-                        ) : (
-                        stories.map((story, index) => {
-                            const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
-                            const formattedDate = date.toLocaleString();
-                            const storyObject = {"id": story.storyId.toNumber(),
-                                                    "title": story.title,
-                                                    "content": story.content,
-                                                    "author": story.from,
-                                                    "category": categories[story.categoryId.toNumber()].name,
-                                                    "date": formattedDate};
-
-                            return (
-                            <div className="story-item2" key={index} onClick={() => handleStoryClick(storyObject)}>
-                                <div className="story-image2"></div>
-                                <div className="story-name2">{story.title}</div>
-                            </div>
+                <div className="categories-container">
+                    <div className = "categories">
+                        {index === 0 ? (
+                            categories.length === 0 ? (
+                            <div className="no-categories">No categories yet, connect your wallet</div>
+                            ) : (
+                            categories.map((category, index) => (
+                                <div className="category-item" key={index} onClick={() => handleCategoryClick(category.id.toNumber())}>
+                                <div className="category-image"></div>
+                                <div className="category-name">{category.name}</div>
+                                </div>
+                            ))
                             )
-                        })
-                    )}
+                            ) : stories.length === 0 ? (
+                                <div className = "no-categories">Currently no Stories Curated</div>
+                            ) : (
+                            stories.map((story, index) => {
+                                const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
+                                const formattedDate = date.toLocaleString();
+                                const storyObject = {"id": story.storyId.toNumber(),
+                                                        "title": story.title,
+                                                        "content": story.content,
+                                                        "author": story.from,
+                                                        "category": categories[story.categoryId.toNumber()].name,
+                                                        "date": formattedDate};
+
+                                return (
+                                <div className="story-item2" key={index} onClick={() => handleStoryClick(storyObject)}>
+                                    <div className="story-image2"></div>
+                                    <div className="story-bubble2">
+                                        <div className="story-name2">{story.title}</div>
+                                        <div className="story-author2">from: {story.from}</div>
+                                    </div>
+                                </div>
+                                )
+                            })
+
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

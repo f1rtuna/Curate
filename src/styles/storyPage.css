@@ -14,6 +14,7 @@
 
 .story-page-title{
     font-size: 3.5rem;
+    width: 100%;
     font-family: 'Caveat', cursive;
     text-transform: uppercase;
 }

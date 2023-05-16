@@ -26,6 +26,15 @@ export default function CurateForm({ provider, account, curate, categories }) {
     createStory(title, categoryIdx, story);
   };
 
+  const handleTitleChange = (event) => {
+    const value = event.target.value;
+    if (value.length <= 30) {
+      setTitle(value);
+    } else {
+      setTitle(value.slice(0, 30));
+    }
+  };
+
   if (!account) {
     return (
       <div className="connect-wallet-message">Connect your wallet to curate.</div>
@@ -41,8 +50,10 @@ export default function CurateForm({ provider, account, curate, categories }) {
         </div>
         <form onSubmit={handleSubmit} className="curate-form-container">
           <label>
-            Title:
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            Title: <span style = {{fontSize: "1.5rem"}}>(*titlees over 30 characters will have title trunacated)</span>
+            <input type="text" value={title} onChange={handleTitleChange} 
+              style={{ height: '3vh', width: '100%', resize: 'none' }}
+            />
           </label>
           <label>
             Category:
@@ -59,7 +70,7 @@ export default function CurateForm({ provider, account, curate, categories }) {
             <textarea
               value={story}
               onChange={(e) => setStory(e.target.value)}
-              style={{ height: '300px', width: '445px', resize: 'none' }}
+              style={{ height: '25vh', width: '100%', resize: 'none' }}
             />
           </label>
           <button type="submit" style={{ backgroundColor: "white", fontSize: '20px', padding: '8px 12px' }}>Curate for .0005 ETH</button>
