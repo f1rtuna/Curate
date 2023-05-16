@@ -4,12 +4,14 @@ import bigInt from 'big-integer';
 import { useNavigate, Link } from 'react-router-dom';
 import { AiOutlineFolderOpen, AiOutlineFolder } from "react-icons/ai";
 import { MdOutlineCreate } from "react-icons/md";
+import CurateForm from './CurateForm';
 import "../styles/home.css";
 
 export default function Home({provider, account, setAccount, curate, categories, subscribedCategories}) {
 
     const navigate = useNavigate();
     const [stories, setStories] = useState([]);
+
 
     const handleStoryClick = (storyObject) => {
         navigate(`/story/${storyObject.id}`, { state: { story: storyObject } });
@@ -105,32 +107,6 @@ export default function Home({provider, account, setAccount, curate, categories,
                                                     "date": formattedDate}
                                 console.log("story object is: ", storyObject)
                                 return (       
-                                    // <Link
-                                    //     to={{
-                                    //         pathname: `/story/${story.storyId.toNumber()}`,
-                                    //         state: {
-                                    //             story: storyObject,
-                                    //             curate: curate,
-                                    //             provider: provider,
-                                    //             account: account
-                                    //         }
-                                    //     }}
-                                    //     key={index}
-                                    //     className="story-item"
-                                    // >
-                                    //     <div className="story-title">{story.title}</div>
-                                    //     {story.content.length > 150 ? (
-                                    //         <div className="story-preview">{story.content.slice(0, 150)}...</div>
-                                    //     ) : (
-                                    //         <div className="story-preview">{story.content}</div>
-                                    //     )}
-                                    //     <div className="story-footer">
-                                    //         <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
-                                    //         <div className="story-date">{formattedDate}</div>
-                                    //         <div className="story-author">-{story.from}</div>
-                                    //     </div>
-                                    // </Link>
-
                                         <div 
                                           key={index} 
                                           className="story-item"
@@ -148,25 +124,6 @@ export default function Home({provider, account, setAccount, curate, categories,
                                             <div className="story-author">-{story.from}</div>
                                           </div>
                                         </div>
-                                                  
-                                        // <Link to={`/story/${story.storyId.toNumber()}`} 
-                                        //         key={index} 
-                                        //         className="story-item"
-                                        //         story = {storyObject}
-                                        // >
-                                        //     <div className="story-title">{story.title}</div>
-                                        //     {story.content.length > 150 ? (
-                                        //         <div className="story-preview">{story.content.slice(0, 150)}...</div>
-                                        //     ) : (
-                                        //         <div className="story-preview">{story.content}</div>
-                                        //     )}
-                                        //     <div className="story-footer">
-                                        //         {/* <div className="">{story.storyId.toNumber()}</div> */}
-                                        //         <div className="story-category">{categories[story.categoryId.toNumber()].name}</div>
-                                        //         <div className="story-date">{formattedDate}</div>
-                                        //         <div className="story-author">-{story.from}</div>
-                                        //     </div>
-                                        // </Link>
                                 )
                             })}
                         </div>
@@ -189,35 +146,31 @@ export default function Home({provider, account, setAccount, curate, categories,
                             <MdOutlineCreate />
                             Curate!
                         </Link>
+                        {/* <li>
+                        <div className={index === 2 ? 'active' : ''} onClick = {() => setCurateForm(true)}>
+                            <MdOutlineCreate />
+                            Curate!
+                        </div>
+                        </li> */}
                     </ul>
                 </div>
 
                 {/* category section */}
                 <div className = "categories">
                     {index === 0 ? (
+                        categories.length === 0 ? (
+                        <div className="no-categories">No categories yet, connect your wallet</div>
+                        ) : (
                         categories.map((category, index) => (
-
-                            // <Link to={`/category/${category.id.toNumber()}`} className = "category-item" key = {index}>
-                            //     <div className="category-image"></div>
-                            //     <div className="category-name">{category.name}</div>
-                            // </Link>
-                             
-                            <div className="category-item" key={index} onClick = {() => handleCategoryClick(category.id.toNumber())}>
-                                <div className="category-image"></div>
-                                <div className="category-name">{category.name}</div>
+                            <div className="category-item" key={index} onClick={() => handleCategoryClick(category.id.toNumber())}>
+                            <div className="category-image"></div>
+                            <div className="category-name">{category.name}</div>
                             </div>
                         ))
-                        // ) : subscribedCategories.length === 0 ? (
-                        // <div className = "no-categories">You are currently not subscribed to any category</div>
-                          ) : stories.length === 0 ? (
+                        )
+                        ) : stories.length === 0 ? (
                             <div className = "no-categories">Currently no Stories Curated</div>
                         ) : (
-                        // subscribedCategories.map((category, index) => (
-                        //     <div className="category-item" key={index} onClick={() => handleCategoryClick(category.id.toNumber())}>
-                        //         <div className="category-image"></div>
-                        //         <div className="category-name">{category.name}</div>
-                        //     </div>
-                        // ))
                         stories.map((story, index) => {
                             const date = new Date(story.timestamp.toNumber() * 1000); // convert seconds to milliseconds
                             const formattedDate = date.toLocaleString();
@@ -236,15 +189,7 @@ export default function Home({provider, account, setAccount, curate, categories,
                             )
                         })
                     )}
-                    {/* {categories.map((category, index) => (
-                        <div className= "category-item">
-                            <div className="category-image"></div>
-                            <div className="category-name">{category.name}</div>
-                        </div>
-                    ))} */}
                 </div>
-                
- 
             </div>
         </div>
   )
