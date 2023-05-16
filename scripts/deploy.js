@@ -16,7 +16,7 @@ async function main() {
 
     console.log("Contract address:", curate.address);
 
-    const Categories = ["Confessions", "Thriller", "Horror", "Adventure", "Comedic"];
+    const Categories = ["Confessions", "Thriller", "Horror", "Adventure", "Comedic", "Other"];
     for (let i = 0; i < Categories.length; i++){
       const createCategory = await curate.connect(deployer).createCategory(Categories[i]);
     }
