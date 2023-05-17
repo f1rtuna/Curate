@@ -28,9 +28,6 @@
 In a separate terminal execute:
 `$ npx hardhat run ./scripts/deploy.js --network localhost`
 
-### 6. Start Socket.io server
-`$ node server.js`
-
-### 7. Start frontend
+### 6. Start frontend
 In a separate terminal execute:
 `$ npm run start`
