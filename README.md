@@ -1,4 +1,4 @@
-# Dappcord
+# Curate
 
 ## Technology Stack & Tools
 
