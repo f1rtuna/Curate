@@ -1,4 +1,4 @@
-# Curate
+# Curate - A Blockchain Based Decentralized Creative Writing Platform
 ## Video Overview - Turn Aduio on
 https://github.com/f1rtuna/Curate/assets/59737277/0dfe8956-6bd0-4feb-9d79-73982aa1574f
 
