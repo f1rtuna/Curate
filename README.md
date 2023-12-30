@@ -1,5 +1,5 @@
 # Curate
-## Video Overview 
+## Video Overview - Turn Aduio on
 https://github.com/f1rtuna/Curate/assets/59737277/0dfe8956-6bd0-4feb-9d79-73982aa1574f
 
 See live deployment here: https://celebrated-concha-ab08b2.netlify.app/
